@@ -1,25 +1,32 @@
-import maleImg from "./assets/images/male.png";
-import maleAtlas from "./assets/images/male_atlas.json";
+import Player from "./Player.js";
+import natureTileSet from './assets/tilesets/RPG-Nature-Tileset.png';
+import mapJson from './assets/tilesets/map.json';
 
 export default class MainScene extends Phaser.Scene {
   constructor() {
-    super();
+    super("MainScene");
   }
 
   preload() {
-    this.load.atlas("male", maleImg, maleAtlas);
+    Player.preload(this);
+    this.load.image("tiles", natureTileSet);
+    this.load.tilemapTiledJSON("map", mapJson);
   }
 
   create() {
-    this.player = new Phaser.Physics.Matter.Sprite(
-      this.matter.world,
-      0,
-      0,
-      "male",
-      "townsfolk_m_idle_1"
-    );
+    const map = this.make.tilemap({ key: "map" });
+    const tileset = map.addTilesetImage("RPG-Nature-Tileset", "tiles", 32, 32, 0, 0);
+    const layer1 = map.createLayer("Tile Layer 1", tileset, 0, 0);
+    const layer2 = map.createLayer("Tile Layer 2", tileset, 0, 0);
+    this.player = new Player({
+      scene: this,
+      x: 0,
+      y: 0,
+      texture: "male",
+      frame: "townsfolk_m_idle_1",
+    });
     this.add.existing(this.player);
-    this.inputKeys = this.input.keyboard.addKeys({
+    this.player.inputKeys = this.input.keyboard.addKeys({
       up: Phaser.Input.Keyboard.KeyCodes.W,
       down: Phaser.Input.Keyboard.KeyCodes.S,
       left: Phaser.Input.Keyboard.KeyCodes.A,
@@ -28,23 +35,6 @@ export default class MainScene extends Phaser.Scene {
   }
 
   update() {
-    const speed = 2.5;
-    const velocity = 1;
-    let playerVelocity = new Phaser.Math.Vector2();
-    if (this.inputKeys.left.isDown) {
-      playerVelocity.x = -velocity;
-    }
-    if (this.inputKeys.right.isDown) {
-      playerVelocity.x = velocity;
-    }
-    if (this.inputKeys.up.isDown) {
-      playerVelocity.y = -velocity;
-    }
-    if (this.inputKeys.down.isDown) {
-      playerVelocity.y = velocity;
-    }
-    playerVelocity.normalize(); // Makes sure magnitude of vector is always 1 - fixes diagonal speed.
-    playerVelocity.scale(speed);
-    this.player.setVelocity(playerVelocity.x, playerVelocity.y);
+    this.player.update();
   }
 }

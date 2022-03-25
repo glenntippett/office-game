@@ -4,7 +4,7 @@ import MainScene from "./MainScene";
 
 const config = {
   type: Phaser.AUTO,
-  parent: "lewagon-game",
+  parent: "game",
   width: 512,
   height: 300,
   backgroundColor: "#999999",
