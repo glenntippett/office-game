@@ -6,14 +6,14 @@ const config = {
   type: Phaser.AUTO,
   parent: "game",
   width: 512,
-  height: 300,
+  height: 512,
   backgroundColor: "#999999",
   scene: MainScene,
   scale: { zoom: 2 },
   physics: {
     default: "matter",
     matter: {
-      debug: true,
+      debug: false,
       gravity: { y: 0 },
     },
   },
