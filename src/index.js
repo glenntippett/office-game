@@ -1,39 +1,31 @@
-import Phaser from 'phaser';
-import logoImg from './assets/logo.png';
-
-class MyGame extends Phaser.Scene
-{
-    constructor ()
-    {
-        super();
-    }
-
-    preload ()
-    {
-        this.load.image('logo', logoImg);
-    }
-      
-    create ()
-    {
-        const logo = this.add.image(400, 150, 'logo');
-      
-        this.tweens.add({
-            targets: logo,
-            y: 450,
-            duration: 2000,
-            ease: "Power2",
-            yoyo: true,
-            loop: -1
-        });
-    }
-}
+import Phaser from "phaser";
+import PhaserMatterCollisionPlugin from "phaser-matter-collision-plugin";
+import MainScene from "./MainScene";
 
 const config = {
-    type: Phaser.AUTO,
-    parent: 'phaser-example',
-    width: 800,
-    height: 600,
-    scene: MyGame
+  type: Phaser.AUTO,
+  parent: "lewagon-game",
+  width: 512,
+  height: 300,
+  backgroundColor: "#999999",
+  scene: MainScene,
+  scale: { zoom: 2 },
+  physics: {
+    default: "matter",
+    matter: {
+      debug: true,
+      gravity: { y: 0 },
+    },
+  },
+  plugins: {
+    scene: [
+      {
+        key: "matterCollision",
+        plugin: PhaserMatterCollisionPlugin,
+        mapping: "matterCollision",
+      },
+    ],
+  },
 };
 
-const game = new Phaser.Game(config);
+new Phaser.Game(config);
