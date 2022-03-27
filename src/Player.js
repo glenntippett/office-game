@@ -21,7 +21,7 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
       frictionAir: 0.35,
     });
     this.setExistingBody(compoundBody);
-    this.setFixedRotation();
+    this.setFixedRotation();    
   }
 
   static preload(scene) {
@@ -34,7 +34,7 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
   }
 
   update() {
-    const speed = 2.5;
+    const speed = 8;
     const velocity = 1;
     let playerVelocity = new Phaser.Math.Vector2();
     if (this.inputKeys.left.isDown) {
