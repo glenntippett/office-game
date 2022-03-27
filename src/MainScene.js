@@ -4,8 +4,10 @@ import officeWall from "./assets/tilesets/Room_Builder_Office_32x32.png";
 import modernOffice from "./assets/tilesets/Modern_Office_Black_Shadow_32x32.png";
 import interiors from "./assets/tilesets/Interiors_free_32x32.png";
 import inspireMapJson from "./assets/tilesets/inspire-map.json";
-import mage from './assets/images/Mage_Idle_1.png';
-import king from './assets/images/King_Idle_1.png';
+import mage from "./assets/images/Mage_Idle_1.png";
+import king from "./assets/images/King_Idle_1.png";
+import { insertDialogue } from "./dialogue.js";
+
 export default class MainScene extends Phaser.Scene {
   constructor() {
     super("MainScene");
@@ -91,22 +93,42 @@ export default class MainScene extends Phaser.Scene {
     });
 
     // NPC's
-    const mage = this.matter.add.sprite(100, 200, 'mage').setScale(2).setStatic(true);
-    const king = this.matter.add.sprite(450, 350, 'king').setScale(2).setStatic(true);
+    const mage = this.matter.add
+      .sprite(100, 200, "mage")
+      .setScale(2)
+      .setStatic(true);
+    const king = this.matter.add
+      .sprite(450, 350, "king")
+      .setScale(2)
+      .setStatic(true);
     king.flipX = true;
 
     this.matterCollision.addOnCollideStart({
       objectA: this.player,
       objectB: mage,
-      callback: () => alert("That's rad man")
+      callback: () => {
+        const text = `
+          <p class="dialogue">
+            That's rad man
+          </p>
+        `;
+        insertDialogue(text);
+      },
     });
 
     this.matterCollision.addOnCollideStart({
       objectA: this.player,
       objectB: king,
-      callback: () => alert("Have you heard about this Figma plugin?")
+      callback: () => {
+        const text = `
+          <p class="dialogue">
+            Have you heard about this new Figma plugin?
+          </p>
+        `;
+        insertDialogue(text);
+      },
     });
-    
+
     this.cameras.main.startFollow(this.player);
     this.cameras.main.roundPixels = true;
     this.add.existing(this.player);
