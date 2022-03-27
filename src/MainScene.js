@@ -6,6 +6,7 @@ import interiors from "./assets/tilesets/Interiors_free_32x32.png";
 import inspireMapJson from "./assets/tilesets/inspire-map.json";
 import mage from "./assets/images/Mage_Idle_1.png";
 import king from "./assets/images/King_Idle_1.png";
+import herald from "./assets/images/Herald_Idle_2.png";
 import { insertDialogue } from "./dialogue.js";
 
 export default class MainScene extends Phaser.Scene {
@@ -25,6 +26,7 @@ export default class MainScene extends Phaser.Scene {
     this.load.image("plants", interiors);
     this.load.image("mage", mage);
     this.load.image("king", king);
+    this.load.image("herald", herald);
     this.load.tilemapTiledJSON("inspireMap", inspireMapJson);
   }
 
@@ -97,11 +99,19 @@ export default class MainScene extends Phaser.Scene {
       .sprite(100, 200, "mage")
       .setScale(2)
       .setStatic(true);
+
     const king = this.matter.add
       .sprite(450, 350, "king")
       .setScale(2)
       .setStatic(true);
     king.flipX = true;
+
+    const herald = this.matter.add
+      .sprite(400, 80, "herald")
+      .setScale(2)
+      .setStatic(true);
+    herald.flipX = true;
+
 
     this.matterCollision.addOnCollideStart({
       objectA: this.player,
@@ -123,6 +133,19 @@ export default class MainScene extends Phaser.Scene {
         const text = `
           <p class="dialogue">
             Have you heard about this new Figma plugin?
+          </p>
+        `;
+        insertDialogue(text);
+      },
+    });
+
+    this.matterCollision.addOnCollideStart({
+      objectA: this.player,
+      objectB: herald,
+      callback: () => {
+        const text = `
+          <p class="dialogue">
+            Bonjour, aimez-vous la K-pop?
           </p>
         `;
         insertDialogue(text);
