@@ -28,4 +28,9 @@ const config = {
   },
 };
 
-new Phaser.Game(config);
+if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ||
+   (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.platform))) {
+    alert('Please visit on a Desktop device')
+} else {
+  new Phaser.Game(config);
+}
