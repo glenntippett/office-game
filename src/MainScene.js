@@ -18,6 +18,8 @@ export default class MainScene extends Phaser.Scene {
     this.load.image("chairs", modernOffice);
     this.load.image("computers", modernOffice);
     this.load.image("couches", interiors);
+    this.load.image("kitchen", interiors);
+    this.load.image("plants", interiors);
     this.load.tilemapTiledJSON("inspireMap", inspireMapJson);
   }
 
@@ -47,17 +49,27 @@ export default class MainScene extends Phaser.Scene {
       "Interiors_free_32x32",
       "couches"
     );
+    const kitchenTileset = map.addTilesetImage(
+      "Interiors_free_32x32",
+      "kitchen"
+    );
+    const plantsTileset = map.addTilesetImage(
+      "Interiors_free_32x32",
+      "plants"
+    );
 
     // Layered from bottom -> top
     const floorLayer = map.createLayer("floor", floorTileset, 0, 0);
     const wallLayer = map.createLayer("walls", wallTileSet, 0, 0);
     const chairLayer = map.createLayer("chairs", chairTileset, 0, 0);
+    const kitchenLayer = map.createLayer("kitchen", kitchenTileset, 0, 0);
     const deskLayer = map.createLayer("desks", deskTileset, 0, 0);
     const couchLayer = map.createLayer("couches", couchesTileset, 0, 0);
     const computerLayer = map.createLayer("computers", computerTileset, 0, 0);
+    const plantLayer = map.createLayer("plants", plantsTileset, 0, 0);
 
     // Set Collisions
-    const collisionLayers = [wallLayer, deskLayer, chairLayer, couchLayer];
+    const collisionLayers = [wallLayer, deskLayer, chairLayer, couchLayer, kitchenLayer, plantLayer];
     collisionLayers.forEach(layer => {
       layer.setCollisionByProperty({ collides: true });
       this.matter.world.convertTilemapLayer(layer);
@@ -66,7 +78,7 @@ export default class MainScene extends Phaser.Scene {
     this.player = new Player({
       scene: this,
       x: 100,
-      y: 100,
+      y: 450,
       texture: "male",
       frame: "townsfolk_m_idle_1",
     });
