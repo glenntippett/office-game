@@ -104,7 +104,7 @@ export default class MainScene extends Phaser.Scene {
     this.matterCollision.addOnCollideStart({
       objectA: this.player,
       objectB: king,
-      callback: () => alert("You have touched the king!")
+      callback: () => alert("Have you heard about this Figma plugin?")
     });
     
     this.cameras.main.startFollow(this.player);
