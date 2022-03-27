@@ -1,8 +1,7 @@
 import Player from "./Player.js";
 import officeFloor from "./assets/tilesets/Modern_Office_MV_Floors_TILESET_A2.png";
 import officeWall from "./assets/tilesets/Room_Builder_Office_32x32.png";
-import desks from "./assets/tilesets/Modern_Office_Black_Shadow_32x32.png";
-import chairs from "./assets/tilesets/Modern_Office_Black_Shadow_32x32.png";
+import modernOffice from "./assets/tilesets/Modern_Office_Black_Shadow_32x32.png";
 import inspireMapJson from "./assets/tilesets/inspire-map.json";
 
 export default class MainScene extends Phaser.Scene {
@@ -14,8 +13,9 @@ export default class MainScene extends Phaser.Scene {
     Player.preload(this);
     this.load.image("floors", officeFloor);
     this.load.image("walls", officeWall);
-    this.load.image("desks", desks);
-    this.load.image("chairs", desks);
+    this.load.image("desks", modernOffice);
+    this.load.image("chairs", modernOffice);
+    this.load.image("computers", modernOffice);
     this.load.tilemapTiledJSON("inspireMap", inspireMapJson);
   }
 
@@ -37,12 +37,17 @@ export default class MainScene extends Phaser.Scene {
       "Modern_Office_Black_Shadow_32x32",
       "chairs"
     );
+    const computerTileset = map.addTilesetImage(
+      "Modern_Office_Black_Shadow_32x32",
+      "computers"
+    );
 
     // Layered from bottom -> top
     const floorLayer = map.createLayer("floor", floorTileset, 0, 0);
     const wallLayer = map.createLayer("walls", wallTileSet, 0, 0);
     const chairLayer = map.createLayer("chairs", chairTileset, 0, 0);
     const deskLayer = map.createLayer("desks", deskTileset, 0, 0);
+    const computerLayer = map.createLayer("computers", computerTileset, 0, 0);
 
     // Set Collisions
     const collisionLayers = [wallLayer, deskLayer, chairLayer];

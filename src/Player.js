@@ -20,6 +20,7 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
       parts: [playerCollider, playerSensor],
       frictionAir: 0.35,
     });
+    this.setScale(2);
     this.setExistingBody(compoundBody);
     this.setFixedRotation();    
   }
