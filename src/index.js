@@ -5,15 +5,15 @@ import MainScene from "./MainScene";
 const config = {
   type: Phaser.AUTO,
   parent: "game",
-  width: 600,
-  height: 400,
-  backgroundColor: "#999999",
+  width: 500,
+  height: 300,
+  backgroundColor: "#F0F0F0",
   scene: MainScene,
   scale: { zoom: 2 },
   physics: {
     default: "matter",
     matter: {
-      debug: true,
+      debug: false,
       gravity: { y: 0 },
     },
   },
