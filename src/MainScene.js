@@ -77,7 +77,7 @@ export default class MainScene extends Phaser.Scene {
 
     this.player = new Player({
       scene: this,
-      x: 110,
+      x: 100,
       y: 450,
       texture: "male",
       frame: "townsfolk_m_idle_1",
